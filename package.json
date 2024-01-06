@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "bunx --bun vite",
-        "build": "bunx --bun vite build"
+        "build": "bunx --bun vite build",
+        "deploy": "gh-pages -d dist"
     },
     "dependencies": {
         "@emotion/react": "^11.11.1",
@@ -35,5 +36,5 @@
         "typescript": "^5.0.2",
         "vite": "^4.4.5"
     },
-    "homepage": "https://brandonmpark.github.io/disney-data"
+    "homepage": "https://brandonmpark.github.io/disney-data-frontend"
 }
