@@ -6,7 +6,7 @@ const MenuBar = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="h6">Wait Times</Typography>
+                <Typography variant="h6">Disneyland Wait Times</Typography>
             </Toolbar>
         </AppBar>
     );

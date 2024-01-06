@@ -20,6 +20,7 @@ const Attractions = () => {
             ) : (
                 <>
                     <DataTable data={attractions.filter((attraction) => attraction.park === RawPark.DISNEYLAND).map(parseAttraction)} />
+                    <DataTable data={attractions.filter((attraction) => attraction.park === RawPark.CALIFORNIA_ADVENTURE).map(parseAttraction)} />
                 </>
             )}
         </div>
