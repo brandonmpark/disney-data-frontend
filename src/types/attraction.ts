@@ -1,40 +1,40 @@
-export enum Status {
+export enum RawStatus {
     OPEN = "open",
     CLOSED = "closed",
     CLOSED_TEMPORARILY = "closed temporarily",
     CLOSED_FOR_REFURBISHMENT = "closed for refurbishment",
 }
 
-export enum StatusView {
+export enum Status {
     OPEN = "Open",
     CLOSED = "Closed",
     CLOSED_TEMPORARILY = "Closed Temporarily",
     CLOSED_FOR_REFURBISHMENT = "Closed for Refurbishment",
 }
 
-export enum Type {
+export enum RawType {
     RIDE = "ride",
     SHOW = "show",
     ATTRACTION = "attraction",
 }
 
-export enum TypeView {
+export enum Type {
     RIDE = "Ride",
     SHOW = "Show",
     ATTRACTION = "Attraction",
 }
 
-export enum Park {
+export enum RawPark {
     DISNEYLAND = "disneyland",
     CALIFORNIA_ADVENTURE = "california adventure",
 }
 
-export enum ParkView {
+export enum Park {
     DISNEYLAND = "Disneyland",
     CALIFORNIA_ADVENTURE = "California Adventure",
 }
 
-export enum Age {
+export enum RawAge {
     PRESCHOOLERS = "preschoolers",
     KIDS = "kids",
     TWEENS = "tweens",
@@ -42,7 +42,7 @@ export enum Age {
     ADULTS = "adults",
 }
 
-export enum AgeView {
+export enum Age {
     PRESCHOOLERS = "Preschoolers",
     KIDS = "Kids",
     TWEENS = "Tweens",
@@ -50,9 +50,26 @@ export enum AgeView {
     ADULTS = "Adults",
 }
 
-export interface Attraction {
+export interface RawAttraction {
     name: string;
     actualName: string;
+    type: RawType;
+    park: RawPark;
+    area: string;
+    heightRequirement: number;
+    ages: RawAge[];
+    tags: string[];
+    seasonal?: boolean;
+    variant?: boolean;
+    todaysHours: [number, number] | [];
+    todaysTimes: number[];
+    waitTime: number;
+    status: RawStatus;
+    waitTimeLastUpdated: string;
+}
+
+export interface Attraction {
+    name: string;
     type: Type;
     park: Park;
     area: string;
@@ -65,23 +82,5 @@ export interface Attraction {
     todaysTimes: number[];
     waitTime: number;
     status: Status;
-    waitTimeLastUpdated: string;
-}
-
-export interface AttractionView {
-    name: string;
-    actualName: string;
-    type: string;
-    park: string;
-    area: string;
-    heightRequirement: number;
-    ages: string[];
-    tags: string[];
-    seasonal?: boolean;
-    variant?: boolean;
-    todaysHours: [number, number] | [];
-    todaysTimes: number[];
-    waitTime: number;
-    status: string;
     waitTimeLastUpdated: Date;
 }

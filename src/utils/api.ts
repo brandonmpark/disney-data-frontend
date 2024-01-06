@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Attraction } from "../types/attraction";
+import { RawAttraction } from "../types/attraction";
 import * as config from "./config";
 import { WaitTimeData } from "../types/waitTime";
 
@@ -37,7 +37,7 @@ export const remove = async (url: string) => {
     return response.data;
 };
 
-export const getAttractions = async (): Promise<Attraction[]> => {
+export const getAttractions = async (): Promise<RawAttraction[]> => {
     const response = await api.get("/attractions/get");
     if (response.status !== 200) throw new Error(response.data.message);
     return response.data;

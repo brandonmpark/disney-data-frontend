@@ -1,5 +1,4 @@
-import { Attraction } from "../types/attraction";
-import { AttractionView } from "./../types/attraction";
+import { Age, Attraction, Park, RawAge, RawAttraction, RawPark, RawStatus, RawType, Status, Type } from "../types/attraction";
 
 const capitalize = (s: string) => {
     return s
@@ -8,6 +7,10 @@ const capitalize = (s: string) => {
         .join(" ");
 };
 
+const parsePark = (park: RawPark) => {
+    return capitalize(park) as Park;
+}
+
 const parseArea = (area: string) => {
     if (area === "mickeys toontown") return "Mickey's Toontown";
     if (area === "star wars galaxys edge") return "Star Wars: Galaxy's Edge";
@@ -15,14 +18,27 @@ const parseArea = (area: string) => {
     return capitalize(area);
 }
 
-export const parseAttraction = (attraction: Attraction): AttractionView => {
+const parseType = (type: RawType) => {
+   return capitalize(type) as Type;
+}
+
+const parseStatus = (status: RawStatus) => {
+    return capitalize(status) as Status;
+}
+
+const parseAges = (ages: RawAge[]) => {
+    return ages.map((age) => capitalize(age) as Age);
+}
+
+export const parseAttraction = (attraction: RawAttraction): Attraction => {
     return {
         ...attraction,
         name: attraction.actualName,
-        park: capitalize(attraction.park),
+        park: parsePark(attraction.park),
         area: parseArea(attraction.area),
-        type: capitalize(attraction.type),
-        status: capitalize(attraction.status),
+        type: parseType(attraction.type),
+        status: parseStatus(attraction.status),
         waitTimeLastUpdated: new Date(attraction.waitTimeLastUpdated),
+        ages: parseAges(attraction.ages)
     };
 };
