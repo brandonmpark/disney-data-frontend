@@ -1,2 +1,2 @@
 export const API_URL =
-    "http://137.184.47.84/"
+    "https://137.184.47.84/"
