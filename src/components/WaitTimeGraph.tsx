@@ -14,31 +14,40 @@ const WaitTimeGraph = ({ data }: { data: WaitTimeData }) => {
         }));
     };
 
+    const dimensions = { width: 500, height: 300 };
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+
     useEffect(() => {
         if (!data.entries.length) return; // Handling empty data
 
         const svg = d3.select(svgRef.current);
-        const width = 500; // Consider making these responsive
-        const height = 300;
 
         const points = parseData(data);
 
         // Scales
         const xScale = d3
             .scaleTime()
-            .domain(d3.extent(points, (d) => d.timestamp) as [Date, Date])
-            .range([0, width]);
+            .domain([
+                new Date(
+                    new Date().setDate(
+                        points[points.length - 1].timestamp.getDate() - 1
+                    )
+                ),
+                points[points.length - 1].timestamp,
+            ])
+            .range([margin.left, dimensions.width - margin.right]);
 
         const yScale = d3
             .scaleLinear()
             .domain([0, d3.max(points, (d) => d.waitTime)] as [number, number])
-            .range([height, 0]);
+            .range([dimensions.height - margin.bottom, margin.top]);
 
         // Line generator
         const line = d3
             .line<WaitTimeGraphEntry>()
             .x((d) => xScale(d.timestamp))
-            .y((d) => yScale(d.waitTime));
+            .y((d) => yScale(d.waitTime))
+            .curve(d3.curveBasis);
 
         const linePath = line(points);
 
@@ -58,11 +67,15 @@ const WaitTimeGraph = ({ data }: { data: WaitTimeData }) => {
     }, [data]); // Dependency array
 
     return (
-        <svg ref={svgRef} width="500" height="300">
-            <g transform="translate(50, 250)">
-                <g ref={xAxisRef} />
-                <g ref={yAxisRef} transform="translate(0,-250)" />
-            </g>
+        <svg ref={svgRef} width={dimensions.width} height={dimensions.height}>
+            <g
+                ref={xAxisRef}
+                transform={`translate(0, ${dimensions.height - margin.bottom})`}
+            />
+            <g
+                ref={yAxisRef}
+                transform={`translate(${margin.left}, 0)`}
+            />
         </svg>
     );
 };

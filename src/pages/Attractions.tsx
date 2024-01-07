@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import DataTable from "../components/DataTable";
-import { RawAttraction, RawPark } from "../types/attraction";
-import * as api from "../utils/api";
+import { AttractionContext } from "../hooks/attractionContext";
+import { RawPark } from "../types/attraction";
 import { parseAttraction } from "../utils/parser";
 
 const Attractions = () => {
-    const [attractions, setAttractions] = useState<RawAttraction[]>([]);
-
-    useEffect(() => {
-        api.getAttractions().then((res) => {
-            setAttractions(res);
-        });
-    }, []);
+    const attractions = useContext(AttractionContext);
 
     return (
         <div>
@@ -19,8 +13,23 @@ const Attractions = () => {
                 "loading"
             ) : (
                 <>
-                    <DataTable data={attractions.filter((attraction) => attraction.park === RawPark.DISNEYLAND).map(parseAttraction)} />
-                    <DataTable data={attractions.filter((attraction) => attraction.park === RawPark.CALIFORNIA_ADVENTURE).map(parseAttraction)} />
+                    <DataTable
+                        data={attractions
+                            .filter(
+                                (attraction) =>
+                                    attraction.park === RawPark.DISNEYLAND
+                            )
+                            .map(parseAttraction)}
+                    />
+                    <DataTable
+                        data={attractions
+                            .filter(
+                                (attraction) =>
+                                    attraction.park ===
+                                    RawPark.CALIFORNIA_ADVENTURE
+                            )
+                            .map(parseAttraction)}
+                    />
                 </>
             )}
         </div>
