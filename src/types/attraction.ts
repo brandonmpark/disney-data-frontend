@@ -51,6 +51,7 @@ export enum Age {
 }
 
 export interface RawAttraction {
+    id: string;
     name: string;
     actualName: string;
     type: RawType;
@@ -69,6 +70,7 @@ export interface RawAttraction {
 }
 
 export interface Attraction {
+    id: string;
     name: string;
     type: Type;
     park: Park;

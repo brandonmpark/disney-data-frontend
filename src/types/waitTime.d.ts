@@ -13,7 +13,7 @@ export interface WaitTimeEntry {
 }
 
 export interface WaitTimeGraphEntry {
-    timestamp: number;
+    timestamp: Date;
     waitTime: number;
 }
 

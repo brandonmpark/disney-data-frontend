@@ -9,6 +9,7 @@ import {
     TableSortLabel,
 } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Attraction } from "../types/attraction";
 
 const DataTable = ({ data }: { data: Attraction[] }) => {
@@ -85,7 +86,11 @@ const DataTable = ({ data }: { data: Attraction[] }) => {
                 <TableBody>
                     {sortedData.map((row) => (
                         <TableRow key={row.name}>
-                            <TableCell>{row.name}</TableCell>
+                            <TableCell>
+                                <Link to={`/attractions/${row.id}`}>
+                                    {row.name}
+                                </Link>
+                            </TableCell>
                             <TableCell>{row.waitTime}</TableCell>
                             <TableCell>{row.status}</TableCell>
                         </TableRow>
